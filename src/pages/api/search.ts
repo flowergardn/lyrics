@@ -86,7 +86,8 @@ const lyrics = async (req: NextApiRequest, res: NextApiResponse) => {
         const lyrics = await scrapeUrl(song.result.url)
 
         res.json({
-            lyrics
+            lyrics,
+            url: song.result.url
         });
     } catch (error) {
         console.error(error);

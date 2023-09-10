@@ -32,7 +32,7 @@ const scrapeUrl = async (url: string) => {
   const cached = await kv.get<{ lyrics: string; }[]>(url);
 
   if(!url.includes("-lyrics")) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch data. This can typically be fixed by switching artist and name positions.");
   }
 
   if(cached) {
@@ -93,9 +93,9 @@ const lyrics = async (req: NextApiRequest, res: NextApiResponse) => {
             lyrics,
             url: song.result.url
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error(error);
-        res.status(500).json({ error: "An error occurred" });
+        res.status(500).json({ error: error.message });
     }
 };
 

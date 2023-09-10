@@ -31,6 +31,10 @@ interface Hit {
 const scrapeUrl = async (url: string) => {
   const cached = await kv.get<{ lyrics: string; }[]>(url);
 
+  if(!url.includes("-lyrics")) {
+    throw new Error("Failed to fetch data");
+  }
+
   if(cached) {
     console.log(`request is cached for ${url}`)
     return cached 
